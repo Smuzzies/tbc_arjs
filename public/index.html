@@ -8,17 +8,14 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script type="module">
-      import { API_KEY } from './config.js';
-
       const scene = document.querySelector('a-scene');
       const text = document.querySelector('a-text');
       const date = document.querySelector('#date');
       const blockInfo = document.querySelector('#block-info');
-
-      const currentDate = new Date().toISOString().split('T')[0];
-      console.log(`Fetching block information for date ${currentDate}`);
-
-      fetch(`https://api.vechainstats.com/v2/block/stats?date=${currentDate}&expanded=true&VCS_API_KEY=${API_KEY}`)
+    
+      console.log('Fetching block information for today');
+    
+      fetch('/api/data')
         .then(response => {
           console.log('Response received from server');
           return response.json();
@@ -27,8 +24,9 @@
           console.log('Block information fetched successfully');
           console.log('Fetched data:', data);
           text.setAttribute('value', '');
+          const currentDate = new Date().toISOString().split('T')[0];
           date.setAttribute('text', `value: ${currentDate}`);
-
+    
           const dataInfo = `
             First Block: ${data.data.block_height_first}
             Last Block: ${data.data.block_height_last}
@@ -42,7 +40,7 @@
             VTHO Total Rewarded: ${data.data.vtho_total_rewarded}
             VTHO Total Burned: ${data.data.vtho_total_burned}
           `;
-
+    
           blockInfo.setAttribute('text', `value: ${dataInfo}`);
         })
         .catch(error => {
@@ -50,6 +48,7 @@
           text.setAttribute('value', 'Error fetching block information');
         });
     </script>
+    
   </head>
   <body style="margin: 0; overflow: hidden;">
     <a-scene
