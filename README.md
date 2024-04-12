@@ -28,5 +28,5 @@ The application should now be running and accessible at the specified URL or IP 
 
 Once the application is running, you can experience the AR functionality by pointing your device's camera at various objects or surfaces. The AR content related to The Better Collection on the VeChain blockchain will be overlaid on the real-world view.
 
-![image](https://github.com/Smuzzies/tbc_arjs/assets/110495122/8c9a276a-e24a-4f98-9679-60805d697f7a)
+![image](https://github.com/Smuzzies/tbc_arjs/assets/110495122/8c9a276a-e24a-4f98-9679-60805d697f7a?raw=true&width=200)
 
