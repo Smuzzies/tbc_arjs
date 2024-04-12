@@ -1,24 +1,29 @@
-# The Better Collection - Augmented Reality Project for Vechain
 
-Welcome to The Better Collection, an Augmented Reality project designed to work with the Vechain blockchain. This project utilizes Node.js, Express, Axios, and AR.js to deliver a seamless AR experience that interacts with blockchain data.
+# The Better Collective
+## Augmented Reality Project for VeChain
+This project is an Augmented Reality (AR) application built specifically for The Better Collection on the VeChain blockchain. It utilizes AR.js, a lightweight library for creating augmented reality experiences on the web.
 
-## Installation
+### Installation
+Clone the repository:
+```git clone https://github.com/Smuzzies/tbc_arjs.git```
 
-Follow these steps to get your project up and running:
-
-### Prerequisites
-
-Make sure you have Node.js and npm installed on your system. You can download them from [Node.js official site](https://nodejs.org/).
-
-### Clone the Repository
-
-Start by cloning the repository to your local machine:
-
-```bash
-git clone https://github.com/your-username/tbc_arjs.git
-cd tbc_arjs
+### Install dependencies:
+```npm init
 npm install axios express ar.js dotenv
-API_KEY=yourkey
+```
+
+### Create a .env file in the root directory and add the following environment variables:
+```API_KEY=yourkey
 KEY_PATH=/path/to/privkey.pem
 CERT_PATH=/path/to/fullchain.pem
-node server.js
+```
+Replace yourkey with your actual API key, and /path/to/privkey.pem and /path/to/fullchain.pem with the paths to your private key and full chain certificate files, respectively.
+
+### Start the server
+```node server.js```
+
+The application should now be running and accessible at the specified URL or IP address. The port used in this example is 8888 which can be changed by editing ```server.js```
+
+### Usage
+
+Once the application is running, you can experience the AR functionality by pointing your device's camera at various objects or surfaces. The AR content related to The Better Collection on the VeChain blockchain will be overlaid on the real-world view.
