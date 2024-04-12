@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Augmented Reality Web App</title>
+    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1.3.0/dist/aframe-master.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script type="module">
+      import { API_KEY } from './config.js';
+
+      const scene = document.querySelector('a-scene');
+      const text = document.querySelector('a-text');
+      const date = document.querySelector('#date');
+      const blockInfo = document.querySelector('#block-info');
+
+      const currentDate = new Date().toISOString().split('T')[0];
+      console.log(`Fetching block information for date ${currentDate}`);
+
+      fetch(`https://api.vechainstats.com/v2/block/stats?date=${currentDate}&expanded=true&VCS_API_KEY=${API_KEY}`)
+        .then(response => {
+          console.log('Response received from server');
+          return response.json();
+        })
+        .then(data => {
+          console.log('Block information fetched successfully');
+          console.log('Fetched data:', data);
+          text.setAttribute('value', '');
+          date.setAttribute('text', `value: ${currentDate}`);
+
+          const dataInfo = `
+            First Block: ${data.data.block_height_first}
+            Last Block: ${data.data.block_height_last}
+            Total Blocks: ${data.data.block_count}
+            Total Block Size: ${data.data.block_total_size}
+            Total Gas Limit: ${data.data.block_total_gas_limit}
+            Total Gas Used: ${data.data.block_total_gas_used}
+            Total Transactions: ${data.data.txns_total_count}
+            Total Clauses: ${data.data.clauses_total_count}
+            VTHO Total Paid: ${data.data.vtho_total_paid}
+            VTHO Total Rewarded: ${data.data.vtho_total_rewarded}
+            VTHO Total Burned: ${data.data.vtho_total_burned}
+          `;
+
+          blockInfo.setAttribute('text', `value: ${dataInfo}`);
+        })
+        .catch(error => {
+          console.error('Error fetching block information:', error);
+          text.setAttribute('value', 'Error fetching block information');
+        });
+    </script>
+  </head>
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      embedded
+      arjs="sourceWidth: 1280; sourceHeight: 960; displayWidth: 1280; displayHeight: 960; cameraParametersUrl: 'path/to/camera_para.dat'; cameraIntraSizeUrl: 'path/to/camera_intra.dat'"
+    >
+      <a-text
+        value="Loading block information..."
+        position="-2 2 -5"
+        color="#ffffff"
+        scale="3 3 3"
+      ></a-text>
+      <a-entity>
+        <a-image
+          src="logo.png"
+          position="0 2.75 -5"
+          scale="4.8 2.7 1"
+          look-at="#camera"
+        ></a-image>
+      </a-entity>
+      <a-entity
+        id="date"
+        position="0 2 -5"
+        text="value:;color:#32cd32;font:https://cdn.aframe.io/fonts/Exo2Bold.fnt;align:center"
+        scale="5 5 5"
+      ></a-entity>
+      <a-entity
+        id="block-info"
+        position="0 0.75 -5"
+        text="value:;color:#ffffff;wrapCount:40;align:center"
+        scale="4 4 4"
+      ></a-entity>
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
+    </a-scene>
+  </body>
+</html>
