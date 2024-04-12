@@ -1,3 +1,4 @@
+<img src="https://github.com/Smuzzies/tbc_arjs/assets/110495122/9e39f0ff-13e2-4eea-971f-09bb4282c76d" width="64">
 
 # The Better Collective
 ## Augmented Reality Project for VeChain
